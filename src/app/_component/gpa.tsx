@@ -76,9 +76,9 @@ export default function Gpa() {
   };
 
   const handelReset = () => {
-    setShowNotice3(false);
-    setShowNotice2(false);
     setShowNotice(false);
+    setShowNotice2(false);
+    setShowNotice3(false);
     setMarks(null);
     setCredit(null);
     setCgpa([]);
