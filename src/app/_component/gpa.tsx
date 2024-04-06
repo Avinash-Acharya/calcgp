@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type GpaProps = {
   point: number;
@@ -14,9 +14,10 @@ export default function Gpa() {
   const [showNotice, setShowNotice] = useState<boolean>(false);
   const [showNotice2, setShowNotice2] = useState<boolean>(false);
   const [showNotice3, setShowNotice3] = useState<boolean>(false);
+  const [result, setResult] = useState<number | null>(null);
 
   let points: number | null;
-  let result: number | null = null;
+  // let result: number | null = null;
 
   console.log(marks);
   console.log(credit);
@@ -61,7 +62,7 @@ export default function Gpa() {
     }
   };
 
-  const handelCalculate = () => {
+  const handleCalculate = () => {
     if (count === 1 && marks == null && credit == null) {
       setShowNotice2(true);
       setShowNotice3(false);
@@ -71,11 +72,11 @@ export default function Gpa() {
       marksToPoints(marks ?? 0);
       const newCgpa: GpaProps = { point: points ?? 0, credit: credit ?? 0 };
       setCgpa([...cgpa, newCgpa]);
-      calculate();
+      // calculate();
     }
   };
 
-  const handelReset = () => {
+  const handleReset = () => {
     setShowNotice(false);
     setShowNotice2(false);
     setShowNotice3(false);
@@ -85,19 +86,23 @@ export default function Gpa() {
     setCount(1);
   };
 
-  const calculate = () => {
-    let totalPoint = 0;
-    let totalCredit = 0;
+  useEffect(() => {
+    const calculate = () => {
+      let totalPoint = 0;
+      let totalCredit = 0;
 
-    cgpa.forEach((item) => {
-      totalPoint += item.point * item.credit;
-      totalCredit += item.credit;
-    });
+      cgpa.forEach((item) => {
+        totalPoint += item.point * item.credit;
+        totalCredit += item.credit;
+      });
+      const final = totalPoint / totalCredit;
+      setResult(Number(final.toFixed(2)));
+    };
 
-    result = totalPoint / totalCredit;
-  };
+    calculate();
+  }, [cgpa]);
 
-  const handelAdd = () => {
+  const handleAdd = () => {
     if (marks === null && credit === null) {
       setShowNotice(true);
     } else {
@@ -112,20 +117,22 @@ export default function Gpa() {
   };
 
   return (
-    <div className="mx-auto flex w-max flex-col items-center justify-center bg-red-400 p-4 text-black sm:w-9/12 ">
-      <div>Subject : {count}</div>
+    <div className="mx-auto flex w-9/12 flex-col items-center justify-center gap-3 bg-slate-200 p-4 text-black sm:py-8 ">
+      <div className="my-3 rounded-md bg-slate-300 px-1 font-medium text-slate-800 ">
+        Subject : {count}
+      </div>
       <div>
         {showNotice && (
-          <p className="mb-2 rounded-md border-red-500 bg-red-300 p-1 text-red-600">
+          <p className="m-2 rounded-md bg-red-300 p-1 font-medium text-red-600">
             Please enter a value for marks and credit
           </p>
         )}
       </div>
-      <div className="py-3">
+      <div className="pb-3">
         <label htmlFor="marks"></label>
         <input
           id="marks"
-          className="text-center"
+          className="rounded-lg text-center shadow-lg outline-none "
           type="number"
           value={marks ?? ""}
           placeholder="-- Marks --"
@@ -133,41 +140,41 @@ export default function Gpa() {
           onChange={(e) => setMarks(parseFloat(e.target.value))}
         />
       </div>
-      <div className="py-3">
+      <div className="pb-3">
         <label htmlFor="credit"></label>
         <input
           id="credit"
           type="number"
-          className="text-center"
+          className="rounded-lg text-center shadow-lg outline-none"
           value={credit ?? ""}
           placeholder="-- Credit --"
           onWheel={numberInputOnWheelPreventChange}
           onChange={(e) => setCredit(parseFloat(e.target.value))}
         />
       </div>
-      <div>
+      <div className="flex gap-2">
         <button
-          onClick={handelAdd}
-          className="m-1 rounded-lg bg-sky-700 px-2 py-1 font-semibold text-white hover:shadow-lg"
+          onClick={handleAdd}
+          className="m-1 rounded-lg border-4 border-sky-400 bg-sky-300 px-1 font-semibold text-white transition-colors delay-100 hover:bg-sky-400 hover:shadow-lg"
         >
           +ADD
         </button>
         <button
-          onClick={handelReset}
-          className="m-1 rounded-lg bg-red-600 px-2 py-1 font-semibold text-white hover:shadow-lg"
+          onClick={handleReset}
+          className="m-1 rounded-lg border-4 border-red-400 bg-red-300 px-1 font-semibold text-white transition-colors hover:bg-red-400 hover:shadow-lg"
         >
           Reset
         </button>
         <button
-          onClick={handelCalculate}
-          className="m-1 rounded-lg bg-sky-700 px-2 py-1 font-semibold text-white hover:shadow-lg"
+          onClick={handleCalculate}
+          className="m-1 rounded-lg border-4 border-sky-400 bg-sky-300 px-1 font-semibold text-white transition-colors hover:bg-sky-400 hover:shadow-lg"
         >
           Calculate
         </button>
       </div>
       <div>
         {showNotice2 && (
-          <p className="mb-2 rounded-md border-red-500 bg-red-300 p-1 text-red-600">
+          <p className="my-2 rounded-md  bg-red-300 p-1 font-medium text-red-600">
             No data to work on
           </p>
         )}
