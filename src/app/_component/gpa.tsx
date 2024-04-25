@@ -19,11 +19,6 @@ export default function Gpa() {
   let points: number | null;
   // let result: number | null = null;
 
-  console.log(marks);
-  console.log(credit);
-  console.log(cgpa);
-  console.log(result);
-
   const numberInputOnWheelPreventChange = (
     e: React.MouseEvent<HTMLInputElement>,
   ) => {
@@ -117,8 +112,8 @@ export default function Gpa() {
   };
 
   return (
-    <div className="mx-auto flex w-9/12 flex-col items-center justify-center gap-3 bg-slate-200 p-4 text-black sm:py-8 ">
-      <div className="my-3 rounded-md bg-slate-300 px-1 font-medium text-slate-800 ">
+    <div className="mx-auto flex w-9/12 flex-col items-center justify-center gap-3 rounded-3xl bg-slate-200 p-4 text-2xl text-black shadow-lg sm:py-8 ">
+      <div className="my-3 cursor-pointer rounded-md bg-slate-300 px-1 font-medium text-slate-800 ">
         Subject : {count}
       </div>
       <div>
@@ -155,19 +150,19 @@ export default function Gpa() {
       <div className="flex gap-2">
         <button
           onClick={handleAdd}
-          className="m-1 rounded-lg border-4 border-sky-400 bg-sky-300 px-1 font-semibold text-white transition-colors delay-100 hover:bg-sky-400 hover:shadow-lg"
+          className="m-1 rounded-lg border-[3px] border-sky-400 bg-sky-300 px-1 font-semibold text-white transition-colors delay-100 hover:bg-sky-400 hover:shadow-lg"
         >
           +ADD
         </button>
         <button
           onClick={handleReset}
-          className="m-1 rounded-lg border-4 border-red-400 bg-red-300 px-1 font-semibold text-white transition-colors hover:bg-red-400 hover:shadow-lg"
+          className="m-1 rounded-lg border-[3px] border-red-400 bg-red-300 px-1 font-semibold text-white transition-colors hover:bg-red-400 hover:shadow-lg"
         >
           Reset
         </button>
         <button
           onClick={handleCalculate}
-          className="m-1 rounded-lg border-4 border-sky-400 bg-sky-300 px-1 font-semibold text-white transition-colors hover:bg-sky-400 hover:shadow-lg"
+          className="m-1 rounded-lg border-[3px] border-sky-400 bg-sky-300 px-1 font-semibold text-white transition-colors hover:bg-sky-400 hover:shadow-lg"
         >
           Calculate
         </button>
@@ -179,7 +174,13 @@ export default function Gpa() {
           </p>
         )}
       </div>
-      <div>{showNotice3 && <p>GPA : {result} </p>}</div>
+      <div>
+        {showNotice3 && (
+          <p className="my-3 cursor-pointer rounded-md bg-slate-300 px-1 font-medium text-slate-800 ">
+            GPA : {result}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
