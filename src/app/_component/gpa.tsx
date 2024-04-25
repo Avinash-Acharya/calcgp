@@ -112,7 +112,7 @@ export default function Gpa() {
   };
 
   return (
-    <div className="mx-auto flex w-9/12 flex-col items-center justify-center gap-3 rounded-3xl bg-slate-200 p-4 text-2xl text-black shadow-lg sm:py-8 ">
+    <div className="mx-auto flex flex-col items-center justify-center gap-3 rounded-3xl bg-slate-200 p-4 text-xl text-black shadow-lg sm:w-9/12 sm:py-8 sm:text-2xl ">
       <div className="my-3 cursor-pointer rounded-md bg-slate-300 px-1 font-medium text-slate-800 ">
         Subject : {count}
       </div>
