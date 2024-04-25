@@ -127,7 +127,7 @@ export default function Gpa() {
         <label htmlFor="marks"></label>
         <input
           id="marks"
-          className="rounded-lg text-center shadow-lg outline-none "
+          className="h-8 rounded-lg text-center shadow-md outline-none "
           type="number"
           value={marks ?? ""}
           placeholder="-- Marks --"
@@ -140,7 +140,7 @@ export default function Gpa() {
         <input
           id="credit"
           type="number"
-          className="rounded-lg text-center shadow-lg outline-none"
+          className="h-8 rounded-lg text-center shadow-md outline-none"
           value={credit ?? ""}
           placeholder="-- Credit --"
           onWheel={numberInputOnWheelPreventChange}
